@@ -3,13 +3,17 @@
 
 ft_strcmp:
 			xor				rax,rax
+			xor				rcx,rcx
 loop:
-			cmp				byte [ rsi ], byte 0x0
+			mov				cl, byte [ rsi ]
+			cmp				cl, byte 0x0
 			je				end
-			cmp				byte [ rdi ], byte 0x0
-			je				end
+			cmp				byte [ rdi ], cl
+			jne				end
 			inc				rdi
 			inc				rsi
+			jmp				loop
 end:
-			mov				cl, [ rsi ]
-
+			mov				al, byte [ rdi ]
+			sub				eax, ecx
+			ret
