@@ -7,6 +7,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+typedef struct s_list
+{
+	void			*data;
+	struct s_list	*next;
+}	t_list;
+
 
 size_t ft_strlen(const char *s);
 char *ft_strcpy(char *dest, const char *src);
@@ -14,6 +20,7 @@ int	ft_strcmp(const char *s1, const char *s2);
 ssize_t ft_write(int fd, const void *buf, size_t count);
 ssize_t ft_read(int fd, void *buf, size_t count);
 char *ft_strdup(const char *s);
+void ft_list_push_front(t_list **lst, t_list *new);
 
 int	main(int ac, char **av)
 {
@@ -88,6 +95,32 @@ int	main(int ac, char **av)
 	}
 	free(res);
 	ft_write(1, "\n\n", 2);
+
+	char	data[] = "Hello world";
+	char	data2[] = "Number 2 is front";
+	t_list	*ft = NULL;
+	t_list	new_front;
+	t_list	tw_front;
+	new_front.data = (void *)data; 
+	new_front.next = NULL; 
+	tw_front.data = (void *)data2; 
+	tw_front.next = NULL; 
+	
+	ft_list_push_front(&ft, &new_front);
+	ft_list_push_front(&ft, &tw_front);
+	if (ft == NULL)
+		printf("Well that did not work");
+	else
+	{
+		printf("It worked motherfuckas\n");
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("%s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+
 
 	return (0);
 }

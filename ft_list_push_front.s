@@ -6,7 +6,9 @@ ft_list_push_front:
 						je				end
 						cmp				rsi, 0x0
 						je				end
-								
+						mov				rax, [rdi]
+						mov				[rsi + 8], rax
+						mov				[rdi], qword rsi
 
 end:
 						ret
