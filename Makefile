@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/03/28 17:05:15 by bdetune          ###   ########.fr        #
+#    Updated: 2023/03/28 18:46:41 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,16 @@ SRCS = ft_read.s \
 	   ft_strlen.s \
 	   ft_write.s
 
-SRCS_BONUS = ft_list_push_front.s
+SRCS_BONUS = ft_list_push_front.s \
+			 ft_list_size.s
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror
 
 SRC_DIR = srcs
+SRC_BONUS_DIR = srcs_bonus
 OBJ_DIR = objs
+OBJ_BONUS_DIR = objs
 
 OBJS := $(SRCS:%.s=$(OBJ_DIR)/%.o)
 OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR)/%.o)
@@ -43,4 +46,8 @@ bonus:		${OBJS} ${OBJS_BONUS}
 			ranlib ${NAME}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
+				${ASM} ${ASM_FLAGS} $< -o $@
+
+
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.s
 				${ASM} ${ASM_FLAGS} $< -o $@

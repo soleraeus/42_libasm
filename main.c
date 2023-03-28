@@ -21,6 +21,7 @@ ssize_t ft_write(int fd, const void *buf, size_t count);
 ssize_t ft_read(int fd, void *buf, size_t count);
 char *ft_strdup(const char *s);
 void ft_list_push_front(t_list **lst, t_list *new);
+int	ft_list_size(t_list *lst);
 
 int	main(int ac, char **av)
 {
@@ -120,6 +121,7 @@ int	main(int ac, char **av)
 			iter = iter->next;
 		}
 	}
+	printf("List size: %d\n", ft_list_size(ft)); 
 
 
 	return (0);
