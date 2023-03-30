@@ -20,8 +20,16 @@ int	ft_strcmp(const char *s1, const char *s2);
 ssize_t ft_write(int fd, const void *buf, size_t count);
 ssize_t ft_read(int fd, void *buf, size_t count);
 char *ft_strdup(const char *s);
-void ft_list_push_front(t_list **lst, t_list *new);
+void ft_list_push_front(t_list **begin_list, void *data);
 int	ft_list_size(t_list *lst);
+void ft_list_sort(t_list **begin_list, int (*cmp)() );
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int(*cmp)(), void (*free_fct)(void*));
+
+void	free_data(void* data)
+{
+	(void)data;
+	return;
+}
 
 int	main(int ac, char **av)
 {
@@ -100,15 +108,46 @@ int	main(int ac, char **av)
 	char	data[] = "Hello world";
 	char	data2[] = "Number 2 is front";
 	t_list	*ft = NULL;
-	t_list	new_front;
-	t_list	tw_front;
-	new_front.data = (void *)data; 
-	new_front.next = NULL; 
-	tw_front.data = (void *)data2; 
-	tw_front.next = NULL; 
+
+	{
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+		ft_list_sort(&ft, ft_strcmp);
+		iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+		
+
+	printf("List size before adding elements: %d\n", ft_list_size(ft)); 
 	
-	ft_list_push_front(&ft, &new_front);
-	ft_list_push_front(&ft, &tw_front);
+	ft_list_push_front(&ft, (void*)data);
+
+	{
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+		ft_list_sort(&ft, ft_strcmp);
+		iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+
+
+	ft_list_push_front(&ft, (void*)data2);
 	if (ft == NULL)
 		printf("Well that did not work");
 	else
@@ -122,6 +161,89 @@ int	main(int ac, char **av)
 		}
 	}
 	printf("List size: %d\n", ft_list_size(ft)); 
+
+	char	data3[] = "ZZZZZZ";
+	char	data4[] = "~o";
+	char	data5[] = "+";
+	char	data6[] = "00";
+	ft_list_push_front(&ft, (void*)data3);
+	ft_list_push_front(&ft, (void*)data4);
+	ft_list_push_front(&ft, (void*)data5);
+	ft_list_push_front(&ft, (void*)data6);
+	printf("diff: %d\n", strcmp(data6, data5));
+	{
+		printf("pre-sort\n");
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+		ft_list_sort(&ft, strcmp);
+		printf("post-sort\n");
+		iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+
+	
+
+	ft_list_remove_if(&ft, (void *)"Hello world", strcmp, free_data);
+	{
+		printf("remove if Hello world\n");
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+	ft_list_remove_if(&ft, (void *)"+", strcmp, free_data);
+	{
+		printf("remove if first element\n");
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+
+	ft_list_remove_if(&ft, (void *)"~o", strcmp, free_data);
+	{
+		printf("remove if last element\n");
+		t_list	*iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
+
+
+
+	t_list	*iter = ft;
+	t_list	*tmp = NULL;
+	while (iter)
+	{
+		tmp = iter->next;
+		free(iter);
+		iter = tmp;
+	}
+	ft = NULL;
+	ft_list_remove_if(&ft, (void *)"~o", strcmp, free_data);
+	{
+		printf("remove if empty list\n");
+		iter = ft;
+		while (iter)
+		{
+			printf("Element: %s\n", (char *)iter->data);
+			iter = iter->next;
+		}
+	}
 
 
 	return (0);

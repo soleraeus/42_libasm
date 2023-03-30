@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/03/28 18:46:41 by bdetune          ###   ########.fr        #
+#    Updated: 2023/03/30 19:36:45 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ SRCS = ft_read.s \
 	   ft_write.s
 
 SRCS_BONUS = ft_list_push_front.s \
-			 ft_list_size.s
+			 ft_list_size.s \
+			 ft_list_sort.s \
+			 ft_list_remove_if.s
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror
@@ -45,9 +47,23 @@ bonus:		${OBJS} ${OBJS_BONUS}
 			ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
 			ranlib ${NAME}
 
+test:		bonus
+			cc -Wall -Werror -Wextra -Wshadow -Wpedantic tests/main.c -L. -lasm -o tester
+
+clean:
+			rm -rf ${OBJS} ${OBJS_BONUS}
+
+fclean:		clean
+			rm -rf ${NAME}
+			rm -rf tester
+
+re:			fclean all
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 				${ASM} ${ASM_FLAGS} $< -o $@
 
 
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.s
 				${ASM} ${ASM_FLAGS} $< -o $@
+
+.PHONY: all bonus clean fclean re
