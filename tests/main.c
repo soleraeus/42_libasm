@@ -42,6 +42,7 @@ int	main(int ac, char **av)
 	int		fd;
 	char	*res;
 
+
 	if (ac < 2)
 	{
 		printf("Enter the string for which you would like to know the length as a parameter\n");
@@ -245,7 +246,9 @@ int	main(int ac, char **av)
 			iter = iter->next;
 		}
 	}
-
+	
+	int new_nb = ft_atoi_base("		\n+---20ab8 9", "0123456789abcdef");
+	printf("Number: %d\n", new_nb);
 
 	return (0);
 }

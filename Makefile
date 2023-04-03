@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/03/30 19:36:45 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/03 17:18:44 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS = ft_read.s \
 SRCS_BONUS = ft_list_push_front.s \
 			 ft_list_size.s \
 			 ft_list_sort.s \
-			 ft_list_remove_if.s
+			 ft_list_remove_if.s \
+			 ft_atoi_base.s
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror
