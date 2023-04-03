@@ -6,25 +6,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <time.h>
+#include "libasm.h"
+#include "tests.h"
 
-typedef struct s_list
-{
-	void			*data;
-	struct s_list	*next;
-}	t_list;
-
-
-size_t ft_strlen(const char *s);
-char *ft_strcpy(char *dest, const char *src);
-int	ft_strcmp(const char *s1, const char *s2);
-ssize_t ft_write(int fd, const void *buf, size_t count);
-ssize_t ft_read(int fd, void *buf, size_t count);
-char *ft_strdup(const char *s);
-void ft_list_push_front(t_list **begin_list, void *data);
-int	ft_list_size(t_list *lst);
-void ft_list_sort(t_list **begin_list, int (*cmp)() );
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int(*cmp)(), void (*free_fct)(void*));
-int	ft_atoi_base(char *str, char *base);
 
 void	free_data(void* data)
 {
@@ -34,6 +19,8 @@ void	free_data(void* data)
 
 int	main(int ac, char **av)
 {
+
+	srand(time(NULL));
 	char	*src = "Hello World";
 	char	*a1="🙂";
 	char	*a2="😉";
@@ -42,7 +29,8 @@ int	main(int ac, char **av)
 	int		fd;
 	char	*res;
 
-
+	test_strlen();
+	test_strcpy();
 	if (ac < 2)
 	{
 		printf("Enter the string for which you would like to know the length as a parameter\n");
@@ -77,7 +65,7 @@ int	main(int ac, char **av)
 	}
 	else
 		printf("That's not normal, got %ld\n", ret);
-	fd = open("main.c", O_RDONLY);
+	fd = open("tests/main.c", O_RDONLY);
 	if (fd < 0)
 	{
 		printf("Error opening file\n");
