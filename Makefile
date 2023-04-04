@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/04/03 19:21:51 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/04 18:18:46 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,13 @@ SRCS_BONUS = ft_list_push_front.s \
 SRCS_TEST = main.c \
 			utils.c \
 			test_strlen.c \
-			test_strcpy.c
+			test_strcpy.c \
+			test_strcmp.c \
+			test_write.c \
+			test_read.c \
+			test_strdup.c \
+			test_atoi_base.c \
+			test_list_push_front.c
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror
@@ -63,7 +69,7 @@ tester:		bonus ${OBJS_TEST}
 			${CC} ${CFLAGS} -Iincludes ${OBJS_TEST} -L. -lasm -o tester
 
 clean:
-			rm -rf ${OBJS} ${OBJS_BONUS}
+			rm -rf ${OBJS} ${OBJS_BONUS} ${OBJS_TEST}
 
 fclean:		clean
 			rm -rf ${NAME}

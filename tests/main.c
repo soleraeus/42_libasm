@@ -1,13 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <time.h>
-#include "libasm.h"
 #include "tests.h"
 
 
@@ -20,10 +10,10 @@ void	free_data(void* data)
 int	main(int ac, char **av)
 {
 
+	(void)av;
 	srand(time(NULL));
 	char	*src = "Hello World";
 	char	*a1="🙂";
-	char	*a2="😉";
 	char	dst[64];
 	ssize_t	ret;
 	int		fd;
@@ -31,22 +21,17 @@ int	main(int ac, char **av)
 
 	test_strlen();
 	test_strcpy();
+	test_strcmp();
+	test_write();
+	test_read();
+	test_strdup();
+	test_atoi_base();
+	test_list_push_front();
 	if (ac < 2)
 	{
 		printf("Enter the string for which you would like to know the length as a parameter\n");
 		return (1);
 	}
-	printf("%ld\n", ft_strlen(av[1]));
-	printf("Copied: [%s]\n", ft_strcpy(dst, src));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp(src, ""), strcmp(src, ""));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp(a1, a1), strcmp(a1, a1));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp("", a1), strcmp("", a1));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp("z", a1), strcmp("z", a1));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp(a2, a1), strcmp(a2, a1));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp("Za", src), strcmp("Za", src));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp(src, "Za"), strcmp(src, "Za"));
-	printf("cst strcmp: %d\nstd strcmp: %d\n", ft_strcmp(src, "Hallo World"), strcmp(src, "Hallo World"));
-
 	ret = ft_write(1, src, ft_strlen(src));
 	ft_write(1, "\n", 1);
 	printf("Written: %ld\n", ret);
