@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/04/04 19:17:38 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/04 20:01:59 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS_TEST = main.c \
 			test_atoi_base.c \
 			test_list_push_front.c \
 			test_list_size.c \
-			test_list_sort.c
+			test_list_sort.c \
+			test_list_remove_if.c
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror

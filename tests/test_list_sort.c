@@ -1,16 +1,16 @@
 #include "tests.h"
 
-int	greater(void *data1, void *data2)
+static int	greater(void *data1, void *data2)
 {
 	return (*((int *)data1) - *((int *)data2));
 }
 
-int	less(void *data1, void *data2)
+static int	less(void *data1, void *data2)
 {
 	return (-(*((int *)data1) - *((int *)data2)));
 }
 
-int	even_and_greater(void *data1, void *data2)
+static int	even_and_greater(void *data1, void *data2)
 {
 	int	first;
 	int	second;
