@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/04/04 18:18:46 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/04 19:17:38 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,22 +34,25 @@ SRCS_TEST = main.c \
 			test_read.c \
 			test_strdup.c \
 			test_atoi_base.c \
-			test_list_push_front.c
+			test_list_push_front.c \
+			test_list_size.c \
+			test_list_sort.c
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -wall -werror
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Wpedantic -Wshadow
+CFLAGS = -Wall -Werror -Wextra -Wpedantic -Wshadow -g
 
 SRC_DIR = srcs
 SRC_BONUS_DIR = srcs_bonus
 TEST_DIR = tests
 OBJ_DIR = objs
+OBJ_DIR_BONUS = objs
 OBJ_DIR_TEST = objs
 
 OBJS := $(SRCS:%.s=$(OBJ_DIR)/%.o)
-OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR)/%.o)
+OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR_BONUS)/%.o)
 OBJS_TEST := $(SRCS_TEST:%.c=$(OBJ_DIR_TEST)/%.o)
 
 
@@ -69,7 +72,7 @@ tester:		bonus ${OBJS_TEST}
 			${CC} ${CFLAGS} -Iincludes ${OBJS_TEST} -L. -lasm -o tester
 
 clean:
-			rm -rf ${OBJS} ${OBJS_BONUS} ${OBJS_TEST}
+			rm -rf ${OBJ_DIR} ${OBJ_DIR_BONUS} ${OBJ_DIR_TEST}
 
 fclean:		clean
 			rm -rf ${NAME}
@@ -78,10 +81,16 @@ fclean:		clean
 re:			fclean all
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
+				test -d ${OBJ_DIR} || mkdir -p ${OBJ_DIR}
 				${ASM} ${ASM_FLAGS} $< -o $@
+
+$(OBJ_DIR_BONUS)/%.o:	$(SRC_BONUS_DIR)/%.s
+						test -d ${OBJ_DIR_BONUS} || mkdir -p ${OBJ_DIR_BONUS}
+						${ASM} ${ASM_FLAGS} $< -o $@
 
 
 $(OBJ_DIR_TEST)/%.o: $(TEST_DIR)/%.c
+				test -d ${OBJ_DIR_TEST} || mkdir -p ${OBJ_DIR_TEST}
 				${CC} ${CFLAGS} -Iincludes -c $< -o $@
 
 .PHONY: all bonus clean fclean re

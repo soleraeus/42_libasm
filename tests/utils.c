@@ -76,3 +76,17 @@ void	ft_putssize_t_fd(ssize_t n, int fd)
 	}
 }
 
+void	clear_list(t_list *head)
+{
+	t_list	*current;
+	t_list	*prev;
+
+	current = head;
+	while (current)
+	{
+		prev = current;
+		current = current->next;
+		free(prev);
+	}
+}
+

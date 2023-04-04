@@ -13,10 +13,12 @@
 # include <fcntl.h>
 # include <limits.h>
 
+
 void	print_test_name(char *name);
 void	print_pass(void);
 void	print_fail(void);
 void	ft_putssize_t_fd(ssize_t n, int fd);
+void	clear_list(t_list *head);
 void	test_strlen(void);
 void	test_strcpy(void);
 void	test_strcmp(void);
@@ -25,5 +27,8 @@ void	test_read(void);
 void	test_strdup(void);
 void	test_atoi_base(void);
 void	test_list_push_front(void);
+void	test_list_size(void);
+void	test_list_sort(void);
+
 
 #endif
