@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/04/06 15:25:19 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/06 16:48:44 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ OBJS := $(SRCS:%.s=$(OBJ_DIR)/%.o)
 OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR)/%.o)
 OBJS_TEST := $(SRCS_TEST:%.c=$(OBJ_DIR_TEST)/%.o)
 
-
+TEST_DEP = includes/libasm.h tests/tests.h
 
 ${NAME}:	${OBJS}
 			ar rcs  ${NAME}	${OBJS}
@@ -78,6 +78,8 @@ fclean:		clean
 			rm -rf tester
 
 re:			fclean all
+
+${OBJS_TEST}:	${TEST_DEP}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 				test -d ${OBJ_DIR} || mkdir -p ${OBJ_DIR}
