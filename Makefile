@@ -6,7 +6,7 @@
 #    By: bdetune <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 16:31:58 by bdetune           #+#    #+#              #
-#    Updated: 2023/04/04 20:01:59 by bdetune          ###   ########.fr        #
+#    Updated: 2023/04/06 15:25:19 by bdetune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,14 +46,12 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -Wpedantic -Wshadow -g
 
 SRC_DIR = srcs
-SRC_BONUS_DIR = srcs_bonus
 TEST_DIR = tests
 OBJ_DIR = objs
-OBJ_DIR_BONUS = objs
 OBJ_DIR_TEST = objs
 
 OBJS := $(SRCS:%.s=$(OBJ_DIR)/%.o)
-OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR_BONUS)/%.o)
+OBJS_BONUS := $(SRCS_BONUS:%.s=$(OBJ_DIR)/%.o)
 OBJS_TEST := $(SRCS_TEST:%.c=$(OBJ_DIR_TEST)/%.o)
 
 
@@ -84,11 +82,6 @@ re:			fclean all
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 				test -d ${OBJ_DIR} || mkdir -p ${OBJ_DIR}
 				${ASM} ${ASM_FLAGS} $< -o $@
-
-$(OBJ_DIR_BONUS)/%.o:	$(SRC_BONUS_DIR)/%.s
-						test -d ${OBJ_DIR_BONUS} || mkdir -p ${OBJ_DIR_BONUS}
-						${ASM} ${ASM_FLAGS} $< -o $@
-
 
 $(OBJ_DIR_TEST)/%.o: $(TEST_DIR)/%.c
 				test -d ${OBJ_DIR_TEST} || mkdir -p ${OBJ_DIR_TEST}
